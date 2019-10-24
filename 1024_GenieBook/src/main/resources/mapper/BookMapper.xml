@@ -3,8 +3,15 @@
 
 <mapper namespace="book">
 
+	<!-- 책 목록 보기 -->
+	<select id="bookList" resultType="book">
+	
+		SELECT * FROM Book
+	
+	</select>
+
 	<!-- 책 등록 -->
-	<insert id = "bookRegister" >
+	<insert id="bookRegister">
 	
 		<selectKey resultType="int" keyProperty="bookNo" order="BEFORE">
 		

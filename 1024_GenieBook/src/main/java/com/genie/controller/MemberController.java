@@ -185,13 +185,13 @@ public class MemberController {
 	public String loginCheck(MemberVO vo, HttpServletRequest req1, Model model1, HttpSession session) {
 
 		boolean result = memberService.loginCheck(vo, session);
-		
-		String sid = memberService.viewMember(vo).getId();
 
 		// 로그인 성공
 		if (result == true) {
 
 			model1.addAttribute("msg", "login success");
+			
+			String sid = memberService.viewMember(vo).getId();
 
 			if (sid.equals("admin"))
 				return "adminMain";

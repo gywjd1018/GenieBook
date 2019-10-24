@@ -24,7 +24,7 @@ public class BookController {
 			
 		model1.addAttribute("bookList", bookService.bookList());
 			
-		return "bookList";
+		return "bookManagement";
 			
 	}
 

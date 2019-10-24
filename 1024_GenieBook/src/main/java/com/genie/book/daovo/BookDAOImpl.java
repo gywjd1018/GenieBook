@@ -12,13 +12,13 @@ public class BookDAOImpl implements BookDAO {
 	
 	// myBatis 실행 객체 
 	@Inject
-	SqlSession sqlSession;
+	SqlSession sqlSession2;
 	
 	// 책 목록 보기
 	@Override
 	public List<BookVO> bookList() {
 		
-		return sqlSession.selectList("bookList");
+		return sqlSession2.selectList("bookList");
 		
 	}
 		
@@ -26,7 +26,7 @@ public class BookDAOImpl implements BookDAO {
 	@Override
 	public void bookRegister(BookVO vo) {
 			
-		sqlSession.insert("bookRegister", vo);
+		sqlSession2.insert("bookRegister", vo);
 			
 	}
 
