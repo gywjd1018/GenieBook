@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="member">
+	
+	<!-- 로그인 체크 -->
+	<select id="loginCheck" resultType="String">
+	
+		SELECT memName FROM Member WHERE id = #{ id } AND pw = #{ pw }
+	
+	</select>	
+	
+	<!-- 로그인한 사용자 정보 가져오기 -->
+	<select id="viewMember" resultType="member">
+	
+		SELECT * FROM Member WHERE id = #{ id } AND pw = #{ pw }
+	
+	</select>
+	
+	<!-- 네이버 가입 -->
+	<insert id="naver_join">
+	
+		<selectKey resultType="int" keyProperty="memNo" order="BEFORE">
+		
+			SELECT NVL(MAX(memNo) + 1, 0) FROM Member
+		
+		</selectKey>
+	
+		INSERT INTO Member(memNo, id, memName, regType, email, gender, regDate, point)
+		VALUES (#{ memNo }, #{ id }, #{ memName }, 'naver', #{ email }, #{ gender }, sysdate, 5000)
+	
+	</insert>
+	
+	<!-- SNS 가입 시 이미 가입한 회원인지 물어보는 쿼리문 -->
+	<select id="isMember" resultType="String">
+	
+		SELECT * FROM Member WHERE email = #{ email }
+	
+	</select>
+	
+	<!-- 일반 회원가입 -->
+	<insert id = "register" >
+	
+		<selectKey resultType="int" keyProperty="memNo" order="BEFORE">
+		
+			SELECT NVL(MAX(memNo) + 1, 0) FROM Member
+		
+		</selectKey>
+	
+		INSERT INTO member(memNo, id, pw, memName, regType, birth, email, phone, gender, addrCode, addr, addrDetail, regDate, point)
+		values(#{memNo}, #{id ,jdbcType=VARCHAR}, #{pw ,jdbcType=VARCHAR}, #{memName ,jdbcType=VARCHAR}, #{regType ,jdbcType=VARCHAR}, #{birth ,jdbcType=VARCHAR}, #{email ,jdbcType=VARCHAR}, #{phone ,jdbcType=VARCHAR}, #{gender ,jdbcType=VARCHAR}, #{addrCode ,jdbcType=VARCHAR}, #{addr ,jdbcType=VARCHAR}, #{addrDetail ,jdbcType=VARCHAR}, sysdate, 5000)
+		
+	</insert>
+	
+	<select id="viewAll" resultType="member">
+	
+		SELECT * FROM Member
+		
+	</select>
+	
+	<delete id="delete" parameterType="String">
+	
+	 	DELETE FROM Member
+	 	WHERE ID = #{id}
+		
+	</delete>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+			
+	<!-- 카카오 가입 -->
+	<insert id="kakao_join">
+	
+		<selectKey resultType="int" keyProperty="memNo" order="BEFORE">
+		
+			SELECT NVL(MAX(memNo) + 1, 0) FROM Member
+		
+		</selectKey>
+	
+		INSERT INTO Member(memNo, id, memName, regType, email, regDate, point)
+		VALUES (#{ memNo }, #{ id }, #{ memName }, 'kakao', #{ email }, sysdate, 5000)
+	
+	</insert>
+	
+</mapper> 

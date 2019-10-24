@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="book">
+
+	<!-- 책 등록 -->
+	<insert id = "bookRegister" >
+	
+		<selectKey resultType="int" keyProperty="bookNo" order="BEFORE">
+		
+			SELECT NVL(MAX(bookNo) + 1, 0) FROM Book
+		
+		</selectKey>
+	
+		INSERT INTO Book(bookNo, bookName, author, publisher, bookCategory, bookDate, bookInfo, bookTable, bookPlot, stock, price, discount, bookType, coverImg)
+		values(#{ bookNo }, #{ bookName, jdbcType=VARCHAR }, #{ author, jdbcType=VARCHAR }, #{ publisher, jdbcType=VARCHAR }, #{ bookCategory, jdbcType=VARCHAR }, sysdate, #{ bookInfo, jdbcType=VARCHAR }, #{ bookTable, jdbcType=VARCHAR }, #{ bookPlot, jdbcType=VARCHAR }, #{ stock, jdbcType=INTEGER }, #{ price, jdbcType=INTEGER }, #{ discount, jdbcType=INTEGER }, #{ bookType, jdbcType=VARCHAR }, #{ coverImg, jdbcType=VARCHAR })
+		
+	</insert>
+	
+</mapper>	
